@@ -16,13 +16,15 @@ public class GEStartup extends Canvas implements Runnable {
 	private int width, height;
 	private Thread t;
 	private static int scale = 1;
+
+	public static boolean moved = false;
 	private String title;
 	private boolean running = false;
 	private Render2D render;
 	private BufferedImage img;
 	private int[] pixels;
 
-	private JFrame frame;
+	private static JFrame frame;
 
 	public GEStartup(String title, int width, int height) {
 		this.width = width;
@@ -153,6 +155,12 @@ public class GEStartup extends Canvas implements Runnable {
 		for (Update u : Updater.getToUpdate())
 			u.update();
 
+	}
+
+	public static void moveFrame(int x, int y) {
+		if (moved) {
+			frame.setLocation(x, y);
+		}
 	}
 
 }
