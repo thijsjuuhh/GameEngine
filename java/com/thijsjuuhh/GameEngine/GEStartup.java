@@ -1,8 +1,11 @@
 package com.thijsjuuhh.GameEngine;
 
-public class GEStartup implements Runnable {
+import java.awt.Canvas;
 
-	private static int width, height;
+public class GEStartup extends Canvas implements Runnable {
+	private static final long serialVersionUID = 1L;
+
+	private int width, height;
 	private Thread t;
 	private static int scale = 1;
 	private String title;
@@ -11,7 +14,30 @@ public class GEStartup implements Runnable {
 	public GEStartup(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
+		this.title = title;
 		t = new Thread(this, title);
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	@Override
+	public int getWidth() {
+		return width;
+	}
+
+	@Override
+	public int getHeight() {
+		return height;
+	}
+
+	public int getScaledWidth() {
+		return width * scale;
+	}
+
+	public int getScaledHeight() {
+		return height * height;
 	}
 
 	public synchronized void start() {
@@ -21,7 +47,7 @@ public class GEStartup implements Runnable {
 		t.start();
 	}
 
-	public synchronized void srop() {
+	public synchronized void stop() {
 		if (!running)
 			return;
 		running = false;
@@ -32,34 +58,42 @@ public class GEStartup implements Runnable {
 		}
 	}
 
+	@Override
 	public void run() {
+		requestFocus();
 		long lastTime = System.nanoTime();
-		double delta = 0;
-		double ns = 1000000000.0 / 60.0;
 		long timer = System.currentTimeMillis();
+		final double ns = 1000000000.0 / 60.0;
+		double delta = 0;
 		int frames = 0;
 		int updates = 0;
-		requestFocus();
 		while (running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / ns;
 			lastTime = now;
-			if (delta >= 1) {
+			while (delta >= 1) {
 				update();
 				updates++;
 				delta--;
 			}
-			render();
-			frames++;
-			if (System.currentTimeMillis() - timer > 1000) {
-				timer += 1000;
-				frame.setTitle(TITLE + " | " + updates + " ups " + frames + " fps");
-				System.out.println(updates + " ups, " + frames + " fps");
+
+			if ((System.currentTimeMillis() - timer) > 1000) {
+				System.out.println(updates + "ups + " + frames + "fps");
 				updates = 0;
 				frames = 0;
+				timer += 1000;
 			}
 
+			render();
+			frames++;
 		}
+		stop();
+	}
+
+	private void render() {
+	}
+
+	private void update() {
 	}
 
 }
