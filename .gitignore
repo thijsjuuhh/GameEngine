@@ -12,6 +12,8 @@ local.properties
 .settings/
 .loadpath
 
+Export.jardesc
+
 # Eclipse Core
 .project
 
