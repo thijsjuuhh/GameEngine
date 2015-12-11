@@ -48,6 +48,10 @@ public class GEStartup extends Canvas implements Runnable {
 		return width;
 	}
 
+	protected void setScale(int s) {
+		scale = s;
+	}
+
 	@Override
 	public int getHeight() {
 		return height;
