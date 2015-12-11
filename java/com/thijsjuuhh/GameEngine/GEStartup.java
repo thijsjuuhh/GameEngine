@@ -146,6 +146,9 @@ public class GEStartup extends Canvas implements Runnable {
 	}
 
 	private void update() {
+		for (Update u : Updater.getToUpdate())
+			u.update();
+
 	}
 
 }
