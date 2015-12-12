@@ -7,9 +7,15 @@ import javax.imageio.ImageIO;
 
 public class SpriteSheet {
 
-	private int width, height;
-	private String path;
+	protected int width, height;
+	public final String path;
 	public int[] pixels;
+
+	protected SpriteSheet(int width, int height) {
+		path = null;
+		this.width = width;
+		this.height = height;
+	}
 
 	public SpriteSheet(String path) {
 		this.path = path;
