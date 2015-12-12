@@ -21,6 +21,24 @@ public class Render2D {
 		}
 	}
 
+	public void renderSpriteSheet(int xOffs, int yOffs, SpriteSheet s, boolean fixed) {
+		if (fixed) {
+			xOffs -= xOffset;
+			yOffs -= yOffset;
+		}
+		for (int y = 0; y < s.getHeight(); y++) {
+			int yP = y + yOffs;
+			for (int x = 0; x < s.getWidth(); x++) {
+				int xP = x + xOffs;
+				if (outOfBounds(xP, yP))
+					continue;
+				int col = s.pixels[x + y * s.getWidth()];
+				if (col != ALPHA_COL)
+					pixels[xP + yP * width] = col;
+			}
+		}
+	}
+
 	public void renderSprite(int xOffs, int yOffs, Sprite s, boolean fixed) {
 		if (fixed) {
 			xOffs -= xOffset;
@@ -37,6 +55,14 @@ public class Render2D {
 					pixels[xP + yP * width] = col;
 			}
 		}
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 	private boolean outOfBounds(int x, int y) {
