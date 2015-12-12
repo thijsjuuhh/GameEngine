@@ -13,6 +13,8 @@ import com.thijsjuuhh.GameEngine.graphics.Render2D;
 public class GEStartup extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 
+	public static int TIME = 0;
+
 	private int width, height;
 	private Thread t;
 	private static int scale = 1;
@@ -52,6 +54,10 @@ public class GEStartup extends Canvas implements Runnable {
 
 	protected void setScale(int s) {
 		scale = s;
+	}
+
+	public int getScale() {
+		return scale;
 	}
 
 	@Override
@@ -152,6 +158,9 @@ public class GEStartup extends Canvas implements Runnable {
 	}
 
 	private void update() {
+		TIME++;
+		if (TIME >= Integer.MAX_VALUE - 100)
+			TIME = 0;
 		for (Update u : Updater.getToUpdate())
 			u.update();
 
