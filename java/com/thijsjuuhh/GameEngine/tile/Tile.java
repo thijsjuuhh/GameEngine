@@ -26,6 +26,10 @@ public abstract class Tile implements Update {
 		return mapCol;
 	}
 
+	public String getUnlocalizedName() {
+		return unlocalizedName;
+	}
+
 	public abstract void render(int x, int y, Render2D r);
 
 	public abstract boolean isSolid();
