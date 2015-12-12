@@ -5,9 +5,21 @@ import java.awt.image.BufferedImage;
 public class Sprite {
 
 	protected SpriteSheet s;
-	private int w, h, x, y;
+	protected SubSheet sub;
+	protected int w;
+	protected int h;
+	protected int x;
+	protected int y;
 	public int[] pixels;
-	private BufferedImage i;
+	protected BufferedImage i;
+
+	public Sprite(SubSheet s, int width, int height) {
+		this.s = s;
+		w = width;
+		h = height;
+		pixels = new int[w * h];
+		load();
+	}
 
 	public Sprite(int width, int height, int x, int y, SpriteSheet s) {
 		this.s = s;
